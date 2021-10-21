@@ -1,0 +1,11 @@
+.hidden {
+    display: none !important
+}
+.dz{
+    border: dashed;
+    border-color: black;
+    border-radius: 20px;
+}
+.dz:hover{
+    background-color: aqua;
+}

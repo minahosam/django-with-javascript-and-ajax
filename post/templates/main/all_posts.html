@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+  
+{% endblock title %}
+{% block content %}
+<!-- Modal -->
+<div class="modal fade" id="postModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Post</h5>
+        <button type="button" class="btn-close close-btn" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="" method="POST" id="post-form">
+          {% csrf_token %}
+          {{form}}
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger close-btn" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary" id="add-btn">add</button>
+          </div>
+        </form>
+        <form action="upload/" class="dropzone dz hidden" id="dropzone">
+          {% csrf_token %}
+          <div class="fallback">
+            <input name="file" type="file" multiple />
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Button trigger modal -->
+
+<div id="alert-button"></div>
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#postModal">
+  Add New Post
+</button>
+<div id="spinner-border" class="text-center">
+  <div class="spinner-border" role="status"></div>
+</div>
+  <div id="posts-text">
+    <!-- {% for obj in qs %}
+      {{obj.title}}
+      <br>
+    {% endfor %} -->
+  </div>
+  <div id="posts-bar"></div>
+  <div class="text-center mt-3" id="end-btn">
+    <button type="submit" id="load-btn">Load more</button>
+  </div>
+{% endblock content %}
+{% block scripts %}
+  <script src="{% static 'post/main.js' %}" defer></script>
+{% endblock scripts %}

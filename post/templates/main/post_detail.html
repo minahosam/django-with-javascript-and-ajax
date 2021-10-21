@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+  {{post.title}}
+{% endblock title %}
+{% block content %}
+<!-- update Modal -->
+<div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Update Post</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="" method="POST" id="update-form">
+          {% csrf_token %}
+          {{form}}
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">update</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- delete Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Delete Post</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="" method="POST" id="delete-form">
+          {% csrf_token %}
+          Are You Sure You Want To Delete Post <b>{{post.title}}</b>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">delete</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- {% if post.get_photos_post %} -->
+  <!--carsoul-->
+  <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      {% for q in post.get_photos_post %}
+      <div class="carousel-item {% if forloop.counter == 1%}active{% endif %}">
+        <img src="{{q.photos.url}}" class="d-block w-100" alt="...">
+      </div>
+      {% endfor %}
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+<!--end carsoul-->
+<!-- {% endif %} -->
+  
+<div id="alert-button"></div>
+  <button id="back-btn" class="btn btn-info">BACK</button>
+  <button id="update-btn" class="btn btn-success hidden" data-bs-toggle="modal" data-bs-target="#updateModal">UPDATE</button>
+  <button id="delete-btn" class="btn btn-danger hidden" data-bs-toggle="modal" data-bs-target="#deleteModal">DELETE</button>
+  <div id="spinner-box" class="text-center">
+    <div class="spinner-border" role="status"></div>
+  </div>
+  <div class="mt-1" id="post-box"></div>
+{% endblock content %}
+{% block scripts %}
+  <script src="{% static 'post/detail.js' %}" defer></script>
+{% endblock scripts %}
